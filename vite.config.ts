@@ -1,38 +1,24 @@
-/// <reference types="vitest" />
-
 import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
-import type { AliasOptions, UserConfigExport } from 'vite';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
-const ReactCompilerConfig = {
-  sources: (filename: string) => {
-    return filename.indexOf('src/') !== -1;
-  },
-};
-
-const AliasConfig: AliasOptions = {
+const AliasConfig = {
   '~/': `${path.resolve(__dirname, 'src')}/`,
 };
 
 export default defineConfig(({ mode }) => {
-  const options: UserConfigExport = {
+  return {
     resolve: {
       alias: AliasConfig,
     },
     plugins: [
-      react({
-        babel: {
-          plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]],
-        },
-      }),
+      react(),
       ...(mode === 'production'
         ? [
             legacy({
               targets: ['chrome >= 87', 'edge >= 88', 'firefox >= 78', 'safari >= 14'],
-              modernPolyfills: true,
             }),
             visualizer({
               open: false,
@@ -44,29 +30,25 @@ export default defineConfig(({ mode }) => {
       environment: 'happy-dom',
       alias: AliasConfig,
     },
-  };
-
-  if (mode === 'production') {
-    options.esbuild = {
-      drop: ['console', 'debugger'],
-    };
-    options.build = {
-      minify: 'esbuild',
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('react')) {
-              return 'react-vendor';
-            }
+    ...(mode === 'production'
+      ? {
+          build: {
+            minify: 'esbuild',
+            cssTarget: 'chrome61',
+            modulePreload: {
+              polyfill: true,
+            },
+            rolldownOptions: {
+              output: {
+                manualChunks(id: string) {
+                  if (id.includes('react')) {
+                    return 'react-vendor';
+                  }
+                },
+              },
+            },
           },
-        },
-      },
-      cssTarget: 'chrome61',
-      modulePreload: {
-        polyfill: true,
-      },
-    };
-  }
-
-  return options;
+        }
+      : {}),
+  };
 });

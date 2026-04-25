@@ -1,10 +1,10 @@
 # Vitesse React
 
-It is a copy of [Vitesse](https://github.com/antfu/vitesse), but it uses React. All the configs always keep fresh.
+It is a copy of [Vitesse](https://github.com/antfu/vitesse), but it uses React. All configs are kept up to date.
 
 ## Features
 
-- ⚡️ [React](https://reactjs.org/) + [Vite](https://vitejs.dev/) + [Bun](https://bun.sh/)
+- ⚡️ [React](https://reactjs.org/) + [Vite](https://vitejs.dev/) + [pnpm](https://pnpm.io/)
 - 🗂 [React Router](https://reactrouter.com/en/main)
 - 😃 [React Use](https://streamich.github.io/react-use/)
 - 🎨 [TailwindCSS](https://tailwindcss.com/) + [Iconify](https://iconify.design/docs/usage/css/tailwind/)
@@ -25,7 +25,5 @@ If you prefer to do it manually with the cleaner git history
 ```bash
 npx degit flower-f/vitesse-react xxx
 cd xxx
-git init # To make sure that the husky can work well
-# If you use Linux system, you might need to execute 'chmod 777 ./.husky/*'
-bun i # If you don't have bun installed, run: curl -fsSL https://bun.sh/install | bash
+pnpm install
 ```

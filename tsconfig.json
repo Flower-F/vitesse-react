@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "module": "ESNext",
-    "target": "ES2015",
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": [
       "DOM",
@@ -11,12 +10,12 @@
     ],
     "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "useUnknownInCatchVariables": false,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "strictNullChecks": true,
@@ -31,5 +30,5 @@
   "exclude": [
     "dist",
     "node_modules"
-  ],
+  ]
 }

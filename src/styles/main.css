@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "@iconify/tailwind4" {
+  prefixes: carbon;
+  scale: 1.2;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer components {
   .btn {

@@ -22,21 +22,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
+
+      - uses: pnpm/action-setup@v4
         with:
-          bun-version: latest
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
 
       - name: Install
-        run: bun install
+        run: pnpm install
 
       - name: Build
-        run: bun run build
+        run: pnpm build
 
       - name: Test
-        run: bun run test
+        run: pnpm test
 
       - name: Lint
-        run: bun run lint
+        run: pnpm lint
 
       - name: Type Check
-        run: bun run typecheck
+        run: pnpm typecheck
