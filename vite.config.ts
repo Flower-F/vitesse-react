@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
     ...(mode === 'production'
       ? {
           build: {
-            minify: 'esbuild',
+            // Vite 8 默认使用 Rolldown (Rust)，无需配置 minify
             cssTarget: 'chrome61',
             modulePreload: {
               polyfill: true,

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/oxlintrc.json",
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-debugger": "warn"
+  }
+}

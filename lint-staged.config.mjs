@@ -1,3 +1,3 @@
 export default {
-  '**/*.{js,jsx,tsx,ts}': ['eslint --fix', 'prettier --write'],
+  '**/*.{js,jsx,tsx,ts}': ['oxlint', 'oxfmt --write'],
 };
