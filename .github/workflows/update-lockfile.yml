@@ -1,0 +1,39 @@
+name: Update Lockfile
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  push:
+    branches:
+      - '**'  # Run on all branches
+
+jobs:
+  update-lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Update lockfile
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Create PR with lockfile update
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update pnpm lockfile'
+          title: 'chore: update pnpm lockfile'
+          body: 'Auto-generated PR to update pnpm-lock.yaml'
+          branch: chore/update-lockfile
+          delete-branch: true
+          signoff: true
